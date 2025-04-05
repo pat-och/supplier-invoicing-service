@@ -48,6 +48,11 @@ db: ## Migrate the database
 	$(SYMFONY_CONSOLE) d:d:c
 	$(SYMFONY_CONSOLE) doctrine:schema:update --force
 
+ddc: ## crfeate DB and tables
+	@$(call GREEN, "create DB and tables...")
+	$(SYMFONY_CONSOLE) d:d:c
+	$(SYMFONY_CONSOLE) doctrine:schema:update --force
+
 dump:
 	@$(call GREEN, "create dump")
 	$(MYSQL_DUMP) -u root rootsessions > "D:\Documents\projects\root sessions\database\dump.sql"
