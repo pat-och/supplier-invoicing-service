@@ -67,6 +67,7 @@
         }
     },
     "require-dev": {
-        "symfony/apache-pack": "^1.0"
+        "symfony/apache-pack": "^1.0",
+        "symfony/maker-bundle": "^1.62"
     }
 }
