@@ -6,6 +6,7 @@ use App\Core\Command\CreateInvoice;
 use App\Core\CreateInvoiceHandler;
 use App\Entity\Invoice;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Uid\Uuid;
 
@@ -27,6 +28,12 @@ class InvoiceCrudController extends AbstractCrudController
             ->hideOnIndex()
             ->hideOnForm()
             ->hideOnDetail()
+        ;
+
+        yield ImageField::new('file')
+            ->setBasePath('uploads\supplier-invoices') // base URL for displaying the file
+            ->setUploadDir('uploads\supplier-invoices') // directory where files are uploaded
+//            ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]') // optional but recommended
         ;
     }
 
