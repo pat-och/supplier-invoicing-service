@@ -65,6 +65,16 @@ mess: ## messenger consume
 	$(SYMFONY_CONSOLE) messenger:consume async --time-limit=5
 	$(SYMFONY_CONSOLE) messenger:consume failed --time-limit=5
 
+
+dash: ## make ea dashboard
+	@$(call GREEN, "ea dashboard...")
+	$(SYMFONY_CONSOLE) make:admin:dashboard
+
+crud: ## make ea crud
+	@$(call GREEN, "ea crud...")
+	$(SYMFONY_CONSOLE) make:admin:crud
+
+
 ## ----- Help -----
 help: ## Display this help
 	@$(call GREEN, "Available commands:")
