@@ -14,7 +14,7 @@ class Invoice
     use SurrogateId;
     use Uuid;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, unique: true)]
     private ?string $document = null;
 
     public function getDocument(): ?string
