@@ -9,6 +9,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\Validator\Constraints\File;
 
 class InvoiceCrudController extends AbstractCrudController
 {
@@ -23,6 +24,8 @@ class InvoiceCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {
+        $filePath = '/var/uploads/supplier-invoices/';
+
         yield TextField::new('uid')
             ->setFormTypeOption('disabled', true)
             ->hideOnIndex()
@@ -30,11 +33,19 @@ class InvoiceCrudController extends AbstractCrudController
             ->hideOnDetail()
         ;
 
-        yield ImageField::new('file')
-            ->setBasePath('uploads\supplier-invoices') // base URL for displaying the file
-            ->setUploadDir('uploads\supplier-invoices') // directory where files are uploaded
-//            ->setUploadedFileNamePattern('[slug]-[timestamp].[extension]') // optional but recommended
-        ;
+        yield ImageField::new('document', 'document')
+            ->hideOnIndex()
+            ->hideOnDetail()
+            ->setBasePath($filePath)
+            ->setUploadDir($filePath)
+            ->setFileConstraints(new File([
+                    'mimeTypes' => [
+                        'application/pdf',
+                        'application/x-pdf',
+                        ],
+                    'mimeTypesMessage' => 'Document non valide, seuls les documents PDF sont autorisés.',
+                ])
+            );
     }
 
     public function createEntity(string $entityFqcn): Invoice
